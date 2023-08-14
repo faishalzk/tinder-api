@@ -13,7 +13,7 @@ const options: pgPromise.IInitOptions<IExtensions> = {
           'FROM "user" u ' +
           'LEFT JOIN user_details ud ON ud.user_id = u.id ' +
           'LEFT JOIN master_gender mg ON ud.gender_id = mg.id ' +
-          'WHERE u.id = 2;', [userId]);
+          'WHERE u.id = $1;', [userId]);
     }
   }
 };
