@@ -53,7 +53,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   }
 
   const body = event.body
-  const userId = validateResult.data.id
+  const userId = validateResult.data.user_id
   const userTier = body.user_tier
 
   const pgp = pgPromise(options);

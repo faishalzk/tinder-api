@@ -24,7 +24,7 @@ const options: pgPromise.IInitOptions<IExtensions> = {
           'WHERE u.id NOT IN ( ' +
               'SELECT um.match_id FROM "user" u2 ' +
               'LEFT JOIN user_matches um ON u2.id = um.user_id ' +
-              'WHERE u.id = $1 ' +
+              'WHERE u2.id = $1 ' +
           ') AND u.id != $2 AND ud.gender_id != $3 '
 
       if (user_tier == 2){
