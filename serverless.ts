@@ -20,6 +20,9 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      DB_CONNECTION: 'postgres://faishalnaufal:w7IryVUQTt1k@ep-patient-scene-98638697.us-west-2.aws.neon.tech/neondb?options=project%3Dep-patient-scene-98638697&sslmode=require',
+      ACCESS_TOKEN_SECRET: '195678f1514b677b923c04339103c059e0a2f015dab28788749628f1b67a42cb',
+      REFRESH_TOKEN_SECRET: 'ea0d8e355aa5d4f3b273ac9a051ab52701ebad9f91598a10e31f09b00d36183a'
     },
   },
   // import the function via paths

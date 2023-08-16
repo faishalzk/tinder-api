@@ -7,6 +7,13 @@ import * as jwt from 'jsonwebtoken';
 import schema from './schema';
 import pgPromise from "pg-promise";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+const DB_CONNECTION = process.env.DB_CONNECTION
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET
+
 interface IExtensions {
   getUser(username: string, password: string): Promise<any>;
   postToken(userTokenObj: IUserToken): Promise<any>;
@@ -30,13 +37,11 @@ function hashPassword(password: string): string {
 }
 
 function generateAccessToken(userId: string): string {
-  const accessTokenSecret = '195678f1514b677b923c04339103c059e0a2f015dab28788749628f1b67a42cb';
-  return jwt.sign({ userId }, accessTokenSecret, { expiresIn: '15m' });
+  return jwt.sign({ userId }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 }
 
 function generateRefreshToken(userId: string): string {
-  const refreshTokenSecret = 'ea0d8e355aa5d4f3b273ac9a051ab52701ebad9f91598a10e31f09b00d36183a';
-  return jwt.sign({ userId }, refreshTokenSecret, { expiresIn: '90d' });
+  return jwt.sign({ userId }, REFRESH_TOKEN_SECRET, { expiresIn: '90d' });
 }
 
 
@@ -95,7 +100,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
 
   const pgp = pgPromise(options);
   console.log('Validate user')
-  const db = pgp('postgres://faishalnaufal:w7IryVUQTt1k@ep-patient-scene-98638697.us-west-2.aws.neon.tech/neondb?options=project%3Dep-patient-scene-98638697&sslmode=require');
+  const db = pgp(DB_CONNECTION);
   let result = await db.getUser(loginObj.email, hashedPassword);
   console.log(result)
   if (result && result.id) {

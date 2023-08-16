@@ -1,6 +1,12 @@
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import pgPromise from "pg-promise";
+import { userValidator } from "../../services/userValidator";
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const DB_CONNECTION = process.env.DB_CONNECTION
 
 interface IExtensions {
   findUser(userId: number): Promise<any>;
@@ -19,22 +25,45 @@ const options: pgPromise.IInitOptions<IExtensions> = {
 };
 
 const handler = async (event) => {
+  const headers = event.headers
+  const authToken = headers.Authorization
+  const token = authToken.replace("Bearer ", "")
+
+  const validateResult = await userValidator(token)
+  if (!validateResult.success){
+    const data = {
+      success: validateResult.success,
+      status: 404,
+      data: validateResult.data
+    }
+    console.log(data)
+
+    return formatJSONResponse(data);
+  }
+
   const params = event.queryStringParameters
   const userId = params.id
 
   const pgp = pgPromise(options);
-  const db = pgp('postgres://faishalnaufal:w7IryVUQTt1k@ep-patient-scene-98638697.us-west-2.aws.neon.tech/neondb?options=project%3Dep-patient-scene-98638697&sslmode=require');
+  const db = pgp(DB_CONNECTION);
   const user = await db.findUser(userId);
 
-  return formatJSONResponse({
-    id: user.id,
-    name: user.name,
-    age: user.age,
-    location: user.location,
-    gender: user.gender,
-    description: user.description,
-    is_verified: user.is_verified
-  });
+  const data = {
+    success: true,
+    status: 200,
+    data: {
+      id: user.id,
+      name: user.name,
+      age: user.age,
+      location: user.location,
+      gender: user.gender,
+      description: user.description,
+      is_verified: user.is_verified
+    }
+  }
+  console.log(data)
+
+  return formatJSONResponse(data);
 };
 
 export const main = middyfy(handler);

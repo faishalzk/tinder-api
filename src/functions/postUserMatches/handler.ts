@@ -4,6 +4,12 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 import pgPromise from "pg-promise";
+import {userValidator} from "../../services/userValidator";
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const DB_CONNECTION = process.env.DB_CONNECTION
 
 interface IExtensions {
   postMatch(userId: number, matchId: number, isLike: boolean): Promise<any>;
@@ -30,6 +36,22 @@ const options: pgPromise.IInitOptions<IExtensions> = {
 };
 
 const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+  const headers = event.headers
+  const authToken = headers.Authorization
+  const token = authToken.replace("Bearer ", "")
+
+  const validateResult = await userValidator(token)
+  if (!validateResult.success){
+    const data = {
+      success: validateResult.success,
+      status: 404,
+      data: validateResult.data
+    }
+    console.log(data)
+
+    return formatJSONResponse(data);
+  }
+
   const body = event.body
   const userId = body.user_id
   const matchId = body.match_id
@@ -39,7 +61,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   }
 
   const pgp = pgPromise(options);
-  const db = pgp('postgres://faishalnaufal:w7IryVUQTt1k@ep-patient-scene-98638697.us-west-2.aws.neon.tech/neondb?options=project%3Dep-patient-scene-98638697&sslmode=require');
+  const db = pgp(DB_CONNECTION);
   const result = await db.postMatch(userId, matchId, isLike);
 
   return formatJSONResponse({

@@ -6,6 +6,11 @@ import * as CryptoJS from 'crypto-js';
 import schema from './schema';
 import pgPromise from "pg-promise";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+const DB_CONNECTION = process.env.DB_CONNECTION
+
 interface IExtensions {
   postUser(userObj: IUser, hashedPassword: string): Promise<any>;
 }
@@ -66,7 +71,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   const hashedPassword = hashPassword(userObj.password)
 
   const pgp = pgPromise(options);
-  const db = pgp('postgres://faishalnaufal:w7IryVUQTt1k@ep-patient-scene-98638697.us-west-2.aws.neon.tech/neondb?options=project%3Dep-patient-scene-98638697&sslmode=require');
+  const db = pgp(DB_CONNECTION);
   const result = await db.postUser(userObj, hashedPassword);
 
   return formatJSONResponse({
