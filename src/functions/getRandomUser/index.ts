@@ -6,7 +6,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'api/user/details'
+        path: 'api/show-random-user'
       },
     },
   ],

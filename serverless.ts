@@ -1,8 +1,10 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
 import getUserDetails from "@functions/getUserDetails";
 import postUserMatches from "@functions/postUserMatches";
+import postSignUp from "@functions/postSignUp";
+import getRandomUser from "@functions/getRandomUser";
+import postLogIn from "@functions/postLogIn";
 
 const serverlessConfiguration: AWS = {
   service: 'tinder-api',
@@ -21,7 +23,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, getUserDetails, postUserMatches },
+  functions: { getUserDetails, postUserMatches, postSignUp, getRandomUser, postLogIn },
   package: { individually: true },
   custom: {
     esbuild: {

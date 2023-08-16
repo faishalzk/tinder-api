@@ -24,8 +24,7 @@ const options: pgPromise.IInitOptions<IExtensions> = {
         return {
           success: false
         }
-      })
-      ;
+      });
     }
   }
 };
