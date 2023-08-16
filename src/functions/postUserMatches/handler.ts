@@ -53,7 +53,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   }
 
   const body = event.body
-  const userId = body.user_id
+  const userId = validateResult.data.user_id;
   const matchId = body.match_id
   let isLike = false
   if (body.is_like && body.is_like === true){

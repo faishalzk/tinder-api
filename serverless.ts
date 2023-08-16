@@ -1,10 +1,11 @@
 import type { AWS } from '@serverless/typescript';
 
-import getUserDetails from "@functions/getUserDetails";
-import postUserMatches from "@functions/postUserMatches";
-import postSignUp from "@functions/postSignUp";
 import getRandomUser from "@functions/getRandomUser";
+import getUserDetails from "@functions/getUserDetails";
+import postSignUp from "@functions/postSignUp";
 import postLogIn from "@functions/postLogIn";
+import postUpdateTier from "@functions/postUpdateTier";
+import postUserMatches from "@functions/postUserMatches";
 import refreshToken from "@functions/refreshToken";
 
 const serverlessConfiguration: AWS = {
@@ -27,7 +28,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { getUserDetails, postUserMatches, postSignUp, getRandomUser, postLogIn, refreshToken },
+  functions: { getRandomUser, getUserDetails, postSignUp, postLogIn, postUpdateTier, postUserMatches, refreshToken },
   package: { individually: true },
   custom: {
     esbuild: {
