@@ -5,6 +5,7 @@ import postUserMatches from "@functions/postUserMatches";
 import postSignUp from "@functions/postSignUp";
 import getRandomUser from "@functions/getRandomUser";
 import postLogIn from "@functions/postLogIn";
+import refreshToken from "@functions/refreshToken";
 
 const serverlessConfiguration: AWS = {
   service: 'tinder-api',
@@ -26,7 +27,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { getUserDetails, postUserMatches, postSignUp, getRandomUser, postLogIn },
+  functions: { getUserDetails, postUserMatches, postSignUp, getRandomUser, postLogIn, refreshToken },
   package: { individually: true },
   custom: {
     esbuild: {

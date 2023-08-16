@@ -76,7 +76,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
 
   return formatJSONResponse({
     success: true,
-    status: result.status ? 200 : 404,
+    status: result.success ? 200 : 404,
     data: result
   });
 };

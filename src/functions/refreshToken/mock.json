@@ -1,0 +1,9 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "email": "faishalnaufal1@gmail.com",
+    "password": "password"
+  }
+}

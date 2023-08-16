@@ -12,13 +12,13 @@ dotenv.config();
 const DB_CONNECTION = process.env.DB_CONNECTION
 
 interface IExtensions {
-  postMatch(userId: number, matchId: number, isLike: boolean): Promise<any>;
+  postUserDetails(userTier: number, userId: number): Promise<any>;
 }
 
 const options: pgPromise.IInitOptions<IExtensions> = {
   extend(obj) {
-    obj.postMatch = (userId, matchId, isLike) => {
-      return obj.one('INSERT INTO user_matches (user_id, match_id, is_like) VALUES($1, $2, $3) RETURNING id;', [userId, matchId, isLike]).then(data => {
+    obj.postUserDetails = (userTier, userId) => {
+      return obj.one('UPDATE "user" SET user_tier=$1 WHERE id=$2 RETURNING id;', [userTier, userId]).then(data => {
         console.log(data.id); // print new user id;
         return {
           success: true,
@@ -53,16 +53,12 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   }
 
   const body = event.body
-  const userId = body.user_id
-  const matchId = body.match_id
-  let isLike = false
-  if (body.is_like && body.is_like === true){
-    isLike = true
-  }
+  const userId = validateResult.data.id
+  const userTier = body.user_tier
 
   const pgp = pgPromise(options);
   const db = pgp(DB_CONNECTION);
-  const result = await db.postMatch(userId, matchId, isLike);
+  const result = await db.postUserDetails(userTier, userId);
 
   return formatJSONResponse({
     success: true,
