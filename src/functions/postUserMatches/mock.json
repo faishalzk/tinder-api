@@ -1,0 +1,9 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "match_id": 3,
+    "is_like": true
+  }
+}

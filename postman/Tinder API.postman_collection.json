@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "35bf056d-a2ac-4c1a-86a1-d2fe079ce78d",
+		"name": "Tinder API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23026207"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"garygary@gmail.com\",\n    \"password\": \"Pass_1234\",\n    \"name\": \"Gary Gary\",\n    \"gender\": 1,\n    \"location\": \"Jakarta\",\n    \"age\": 25,\n    \"description\": \"Hi, I'm gary\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/signup",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log In",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"garygary@gmail.com\",\n    \"password\": \"Pass_1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/login",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Random User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJpYXQiOjE2OTIyMTgxNDMsImV4cCI6MTY5MjIxOTA0M30.EG1-1gXYiPosOKC1L6WTUGImzJXZdw0kv1BTSnFsDNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/user/show",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"user",
+						"show"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJpYXQiOjE2OTIyMTgxNDMsImV4cCI6MTY5MjIxOTA0M30.EG1-1gXYiPosOKC1L6WTUGImzJXZdw0kv1BTSnFsDNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/user/details?id=8",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"user",
+						"details"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pass / Like User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJpYXQiOjE2OTIyMTgxNDMsImV4cCI6MTY5MjIxOTA0M30.EG1-1gXYiPosOKC1L6WTUGImzJXZdw0kv1BTSnFsDNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"match_id\": 6,\n    \"is_like\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/user/match",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"user",
+						"match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Tier",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJpYXQiOjE2OTIyMTgxNDMsImV4cCI6MTY5MjIxOTA0M30.EG1-1gXYiPosOKC1L6WTUGImzJXZdw0kv1BTSnFsDNw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_tier\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/account/tier",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"account",
+						"tier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE2OTIyMTE1MzEsImV4cCI6MTY5OTk4NzUzMX0.d-GCsjGJ3J1CPC1c1DGmn674qrTcP9-4HVAvdXTVipY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"grant_type\": \"refresh_token\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/dev/api/refresh-token",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"dev",
+						"api",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
