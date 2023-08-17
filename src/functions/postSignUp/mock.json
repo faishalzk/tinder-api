@@ -1,0 +1,14 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "email": "faishalnaufal1@gmail.com",
+    "password": "password",
+    "name": "Faishal Zaka",
+    "gender": 1,
+    "location": "Jakarta",
+    "age": 23,
+    "description": "Hi there"
+  }
+}
